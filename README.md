@@ -4,15 +4,17 @@ This repository stores portable Codex workflows for this MacBook first. Other PC
 
 ## Loop Engineering
 
-Loop Engineering is a bounded prompt-and-verify pipeline for Codex:
+Loop Engineering is a bounded, externally grounded prompt-and-verify pipeline for Codex:
 
 1. Define concrete acceptance criteria.
 2. Draft the next working prompt or plan.
 3. Execute the smallest useful step.
-4. Verify with available tools.
+4. Verify with external signals where available.
 5. Critique failures and missing evidence.
 6. Rewrite the next prompt or plan.
 7. Repeat until the criteria pass or the loop budget is reached.
+
+The important constraint is that Codex should not be the only prompt author and the only judge. Verification should be grounded in user criteria, repository state, tests, logs, rendered artifacts, primary documentation, or other external evidence. If no external signal exists, the loop is treated as hypothesis generation rather than proof.
 
 The Codex skill lives at:
 

@@ -4,15 +4,29 @@ Use this skill when a task benefits from an explicit self-improving prompt-and-v
 
 ## Core Rule
 
-Run a bounded loop before finalizing work:
+Run a bounded, externally grounded loop before finalizing work:
 
 1. Frame the target outcome in concrete acceptance criteria.
 2. Draft the working prompt or implementation plan.
 3. Execute the smallest useful step.
-4. Verify the result against the criteria with available tools.
+4. Verify the result against the criteria with external signals where available.
 5. Critique failures, ambiguity, and missing evidence.
 6. Rewrite the next prompt or plan based on that critique.
 7. Repeat until the criteria pass or the loop budget is reached.
+
+## Anti-Drift Rule
+
+Do not let the model be both the only prompt author and the only judge. A loop is valid only when it is grounded by at least one external signal or an explicit limitation statement.
+
+External signals include:
+
+- User-provided requirements, examples, screenshots, logs, traces, or acceptance criteria.
+- Repository code, tests, schemas, configs, design docs, commit history, or existing conventions.
+- Executable checks such as tests, builds, linters, type checks, scripts, or app/browser verification.
+- Primary documentation or cited sources when current factual accuracy matters.
+- Deterministic artifacts such as generated files, diffs, rendered documents, or screenshots.
+
+If no external signal is available, treat the loop as hypothesis generation, not validation. Ask for missing criteria when the risk is high; otherwise proceed with clearly stated assumptions.
 
 ## Default Loop Budget
 
@@ -38,10 +52,10 @@ Attempt:
 - The next concrete action
 
 Verification:
-- Command, inspection, test, or reasoning check
+- External signal used: command, inspection, test, source, artifact, or user criterion
 
 Critique:
-- What failed, what is uncertain, what is missing?
+- What failed, what is uncertain, what is missing, and whether the check can be gamed?
 
 Next Prompt:
 - Revised instruction for the next iteration
@@ -51,6 +65,9 @@ Next Prompt:
 
 - Prefer executable checks over reasoning-only checks.
 - Start with the narrowest relevant test, then broaden only when risk justifies it.
+- Separate generation from evaluation when possible: write criteria before the attempt, then evaluate against those criteria.
+- Treat self-critique as a diagnostic step, not proof of success.
+- Watch for reward hacking: do not weaken criteria, redefine success, ignore failing evidence, or optimize only for easy-to-pass checks.
 - If tools cannot run, state the limitation and use static inspection.
 - Do not invent successful verification. Report failures plainly.
 - Do not modify unrelated code just to make the loop pass.
