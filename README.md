@@ -19,7 +19,7 @@ The important constraint is that Codex should not be the only prompt author and 
 
 This workflow borrows only the useful part of the Ralph pattern: do not stop at explanation when a safe, concrete, verifiable next step remains. Persistence is always subordinate to correctness, maintainability, and safety. "It runs" is not success unless the relevant behavior is verified.
 
-The top priority is honest code: no fake success, no validation weakening, no hidden failures, and no insecure workaround just to make a task appear complete. A service is not ready if it creates avoidable company, user, data, or operational risk. Each loop should also preserve the useful lesson from its success or failure so the next similar task is faster, safer, and better verified.
+The top priority is honest code: no fake success, no validation weakening, no hidden failures, and no insecure workaround just to make a task appear complete. Codex also has a correction duty: if the user instruction contains a false assumption, contradiction, security risk, operational risk, excessive scope, or lower-quality path, it should say so before executing. A service is not ready if it creates avoidable company, user, data, or operational risk. Each loop should also preserve the useful lesson from its success or failure so the next similar task is faster, safer, and better verified.
 
 The Codex skill lives at:
 
