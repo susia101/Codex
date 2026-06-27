@@ -14,6 +14,18 @@ Run a bounded, externally grounded loop before finalizing work:
 6. Rewrite the next prompt or plan based on that critique.
 7. Repeat until the criteria pass or the loop budget is reached.
 
+## Ralph Principle
+
+The loop should be persistent by default: keep trying concrete routes until the user's instruction is solved, blocked by evidence, or outside allowed scope. Do not stop at a polished explanation when an executable next step remains.
+
+Persistence is constrained by the anti-drift gate:
+
+- Keep feeding real outputs back into the next attempt: errors, failing tests, logs, diffs, screenshots, and user corrections.
+- Change tactics when evidence shows the current route is stuck.
+- Prefer small completed steps over broad speculative rewrites.
+- Escalate blockers explicitly instead of pretending the task is done.
+- Stop only when acceptance criteria pass, the user changes direction, or a hard constraint prevents further progress.
+
 ## Anti-Drift Rule
 
 Do not let the model be both the only prompt author and the only judge. A loop is valid only when it is grounded by at least one external signal or an explicit limitation statement.

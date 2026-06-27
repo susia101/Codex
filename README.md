@@ -16,6 +16,8 @@ Loop Engineering is a bounded, externally grounded prompt-and-verify pipeline fo
 
 The important constraint is that Codex should not be the only prompt author and the only judge. Verification should be grounded in user criteria, repository state, tests, logs, rendered artifacts, primary documentation, or other external evidence. If no external signal exists, the loop is treated as hypothesis generation rather than proof.
 
+This workflow also follows a Ralph principle: keep taking concrete next steps until the instruction is solved, blocked by evidence, or outside allowed scope. Persistence is useful only when each retry consumes real feedback such as errors, failing tests, logs, diffs, screenshots, or user corrections.
+
 The Codex skill lives at:
 
 ```text
