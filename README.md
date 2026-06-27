@@ -1,6 +1,6 @@
-# Codex Account Workflows
+# Codex Local Workflows
 
-This repository stores portable Codex workflows that can be synced across the PCs that use this GitHub account.
+This repository stores portable Codex workflows for this MacBook first. Other PCs can use the same workflows only when their own Codex harness installs them locally.
 
 ## Loop Engineering
 
@@ -20,9 +20,17 @@ The Codex skill lives at:
 .codex/skills/loop-engineering/SKILL.md
 ```
 
-## Installing On Another PC
+## Current MacBook
 
-Clone this repository:
+This MacBook already has the `loop-engineering` skill installed in the local Codex home:
+
+```text
+~/.codex/skills/loop-engineering
+```
+
+## Installing On Another PC Manually
+
+On another PC, clone this repository:
 
 ```sh
 git clone https://github.com/susia101/Codex.git
@@ -35,8 +43,8 @@ mkdir -p ~/.codex/skills
 cp -R Codex/.codex/skills/loop-engineering ~/.codex/skills/
 ```
 
-After restarting Codex, the `loop-engineering` skill is available locally.
+After restarting Codex on that PC, the `loop-engineering` skill is available locally.
 
 ## Sync Model
 
-Codex skills are local files. GitHub sync makes the workflow portable, but each PC still needs to pull this repo and install or link the skill into its local Codex home.
+Codex skills are local files. GitHub stores the workflow for backup and manual distribution, but it does not force account-wide activation. Each PC keeps its own Codex harness and decides when to install or update the skill.
