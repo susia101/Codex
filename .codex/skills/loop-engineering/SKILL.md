@@ -14,17 +14,19 @@ Run a bounded, externally grounded loop before finalizing work:
 6. Rewrite the next prompt or plan based on that critique.
 7. Repeat until the criteria pass or the loop budget is reached.
 
-## Ralph Principle
+## Bounded Persistence
 
-The loop should be persistent by default: keep trying concrete routes until the user's instruction is solved, blocked by evidence, or outside allowed scope. Do not stop at a polished explanation when an executable next step remains.
+Borrow only the useful part of the Ralph pattern: do not stop at a polished explanation when a safe, concrete, verifiable next step remains.
 
-Persistence is constrained by the anti-drift gate:
+Persistence is subordinate to correctness, maintainability, and safety:
 
 - Keep feeding real outputs back into the next attempt: errors, failing tests, logs, diffs, screenshots, and user corrections.
+- Never make code "just run" by weakening validation, suppressing errors, deleting tests, broadening types, hiding failures, or bypassing security checks.
 - Change tactics when evidence shows the current route is stuck.
 - Prefer small completed steps over broad speculative rewrites.
 - Escalate blockers explicitly instead of pretending the task is done.
 - Stop only when acceptance criteria pass, the user changes direction, or a hard constraint prevents further progress.
+- If the only remaining path reduces quality or trustworthiness, stop and report the tradeoff instead of applying it.
 
 ## Anti-Drift Rule
 
@@ -80,6 +82,7 @@ Next Prompt:
 - Separate generation from evaluation when possible: write criteria before the attempt, then evaluate against those criteria.
 - Treat self-critique as a diagnostic step, not proof of success.
 - Watch for reward hacking: do not weaken criteria, redefine success, ignore failing evidence, or optimize only for easy-to-pass checks.
+- Treat "it runs" as insufficient unless the relevant behavior is verified.
 - If tools cannot run, state the limitation and use static inspection.
 - Do not invent successful verification. Report failures plainly.
 - Do not modify unrelated code just to make the loop pass.
