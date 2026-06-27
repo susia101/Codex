@@ -2,6 +2,16 @@
 
 Use this skill when a task benefits from an explicit self-improving prompt-and-verify loop: ambiguous implementation work, prompt design, agent workflow design, test generation, debugging, refactoring, quality review, or any task where the first answer should be iteratively improved before delivery.
 
+## Operating Priorities
+
+These priorities override persistence and speed:
+
+1. Honest code: implement the real behavior instead of masking failures, faking success, or producing code that only appears to work.
+2. Security first: treat insecure services as worse than no service when they create company, user, data, or operational risk.
+3. Maintainability: prefer simple, readable, testable changes over clever patches or broad churn.
+4. Verified delivery: plan, execute, verify, then only present as service-ready when the relevant behavior and risk checks pass.
+5. Compounding learning: use each loop's success and failure evidence to make the next attempt more efficient and less risky.
+
 ## Core Rule
 
 Run a bounded, externally grounded loop before finalizing work:
@@ -10,9 +20,10 @@ Run a bounded, externally grounded loop before finalizing work:
 2. Draft the working prompt or implementation plan.
 3. Execute the smallest useful step.
 4. Verify the result against the criteria with external signals where available.
-5. Critique failures, ambiguity, and missing evidence.
-6. Rewrite the next prompt or plan based on that critique.
-7. Repeat until the criteria pass or the loop budget is reached.
+5. Check service readiness: correctness, security, maintainability, and operational risk.
+6. Critique failures, ambiguity, missing evidence, and process waste.
+7. Rewrite the next prompt or plan based on that critique.
+8. Repeat until the criteria pass or the loop budget is reached.
 
 ## Bounded Persistence
 
@@ -27,6 +38,26 @@ Persistence is subordinate to correctness, maintainability, and safety:
 - Escalate blockers explicitly instead of pretending the task is done.
 - Stop only when acceptance criteria pass, the user changes direction, or a hard constraint prevents further progress.
 - If the only remaining path reduces quality or trustworthiness, stop and report the tradeoff instead of applying it.
+
+## Security Gate
+
+Before treating work as complete, check the security implications of the change:
+
+- Do not bypass authentication, authorization, validation, rate limits, audit logging, or data isolation to make a task pass.
+- Do not expose secrets, tokens, credentials, private data, internal URLs, or sensitive logs.
+- Do not add unsafe defaults, broad permissions, debug backdoors, insecure CORS, SQL/string injection paths, or command execution risks.
+- Do not silence security tooling or remove defensive checks without explicit user approval and a clear replacement.
+- If a secure solution is blocked, stop and report the risk instead of shipping an insecure workaround.
+
+## Learning Rule
+
+Every non-trivial loop should produce a reusable insight:
+
+- Record what evidence changed the approach: failing test, log, diff, user correction, security finding, or repo convention.
+- Reuse successful checks and patterns in the next similar task.
+- Avoid repeating failed tactics after evidence shows they do not work.
+- Prefer the shortest verified path learned from prior iterations, without skipping required safety checks.
+- In the final response, mention important lessons only when they affect future work or residual risk.
 
 ## Anti-Drift Rule
 
@@ -71,8 +102,14 @@ Verification:
 Critique:
 - What failed, what is uncertain, what is missing, and whether the check can be gamed?
 
+Service Readiness:
+- Correctness, security, maintainability, and operational risks
+
 Next Prompt:
 - Revised instruction for the next iteration
+
+Loop Insight:
+- What should make the next similar task faster, safer, or more accurate?
 ```
 
 ## Verification Standards
@@ -83,6 +120,7 @@ Next Prompt:
 - Treat self-critique as a diagnostic step, not proof of success.
 - Watch for reward hacking: do not weaken criteria, redefine success, ignore failing evidence, or optimize only for easy-to-pass checks.
 - Treat "it runs" as insufficient unless the relevant behavior is verified.
+- Treat "service-ready" as false until security and operational risks have been considered.
 - If tools cannot run, state the limitation and use static inspection.
 - Do not invent successful verification. Report failures plainly.
 - Do not modify unrelated code just to make the loop pass.
